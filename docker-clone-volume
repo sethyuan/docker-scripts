@@ -1,0 +1,17 @@
+#!/bin/sh
+
+show_usage() {
+  echo "Clone a docker volume\n"
+  echo "Usage: docker-clone-volume src dest"
+}
+
+if [ -z "$1" -o -z "$2" -o "$1" = "-h" -o "$1" = "--help" ]; then
+  show_usage
+  exit
+fi
+
+SRC=$1
+DEST=$2
+
+docker run --rm -v "$SRC":/src -v "$DEST":/dest alpine:3.5 \
+  sh -c "rm -rf /dest/* /dest/.[!.]* && cp -a /src/. /dest"

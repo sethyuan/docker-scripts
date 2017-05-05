@@ -1,0 +1,17 @@
+#!/bin/sh
+
+show_usage() {
+  echo "Restore a docker volume backup into another volume\n"
+  echo "Usage: docker-restore-volume backup_file volume"
+}
+
+if [ -z "$1" -o -z "$2" -o "$1" = "-h" -o "$1" = "--help" ]; then
+  show_usage
+  exit
+fi
+
+FILE=$1
+VOLUME=$2
+
+docker run --rm -v "$VOLUME":/data -v "$PWD":/src alpine:3.5 \
+  sh -c "cd /data && tar xvf \"/src/$FILE\" --strip 1"

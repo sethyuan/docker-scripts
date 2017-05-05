@@ -1,0 +1,17 @@
+#!/bin/sh
+
+show_usage() {
+  echo "Backup a docker volume into a local file\n"
+  echo "Usage: docker-backup-volume volume file"
+}
+
+if [ -z "$1" -o -z "$2" -o "$1" = "-h" -o "$1" = "--help" ]; then
+  show_usage
+  exit
+fi
+
+VOLUME=$1
+FILE=$2
+
+docker run --rm -v "$VOLUME":/data -v "$PWD":/dest alpine:3.5 \
+  sh -c "tar cvf \"/dest/$FILE\" /data"
