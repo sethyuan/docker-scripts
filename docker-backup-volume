@@ -13,5 +13,5 @@ fi
 VOLUME=$1
 FILE=$2
 
-docker run --rm -v "$VOLUME":/data -v "$PWD":/dest alpine:3.5 \
+docker run --rm -v "$VOLUME":/data -v "$PWD":/dest alpine:3.7 \
   sh -c "tar cvf \"/dest/$FILE\" /data"

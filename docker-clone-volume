@@ -13,5 +13,5 @@ fi
 SRC=$1
 DEST=$2
 
-docker run --rm -v "$SRC":/src -v "$DEST":/dest alpine:3.5 \
+docker run --rm -v "$SRC":/src -v "$DEST":/dest alpine:3.7 \
   sh -c "rm -rf /dest/* /dest/.[!.]* && cp -a /src/. /dest"
