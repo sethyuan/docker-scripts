@@ -14,4 +14,4 @@ FILE=$1
 VOLUME=$2
 
 docker run --rm -v "$VOLUME":/data -v "$PWD":/src alpine:3.7 \
-  sh -c "cd /data && tar xvf \"/src/$FILE\" --strip 1"
+  sh -c "rm -rf /data/* /data/.[!.]* && cd /data && tar xvf \"/src/$FILE\" --strip 1"
